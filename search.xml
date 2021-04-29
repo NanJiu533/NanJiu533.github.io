@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>免费Hero項目搭建V2ray并使用Cf加速</title>
+      <link href="2021/04/03/mian-fei-hero-xiang-mu-da-jian-v2ray-bing-shi-yong-cf-jia-su/"/>
+      <url>2021/04/03/mian-fei-hero-xiang-mu-da-jian-v2ray-bing-shi-yong-cf-jia-su/</url>
+      
+        <content type="html"><![CDATA[<p>合并了利用Heroku搭建V2Ray与使用Cloudflare Workers加速V2Ray两篇文章，加以修饰、润色后发出</p><h1 id="注意！本教程仅且只能用于研究与学习"><a href="#注意！本教程仅且只能用于研究与学习" class="headerlink" title="注意！本教程仅且只能用于研究与学习"></a>注意！本教程仅且只能用于研究与学习</h1><p>Heroku最近开始查封此类应用了，据说一部署就会被封，不过我的号倒是啥事没有，都还能用。</p><h2 id="限制"><a href="#限制" class="headerlink" title="限制"></a>限制</h2><p>先讲清楚限制，再开始教程，免得有些人找事</p><p>Heroku免费套餐每月只有550小时的免费时间，适合中重度用户（每天18小时以内），重度用户（24小时）请左转付费VPN<br>速度视时间而定；当然，主要取决于你家的网络<br>建议问问题之前先谷歌一下<br>Heroku免费容器未使用超过一段时间（三十分钟左右）就会休眠<br>更新时间为：2021年04月3日，不希望2100年有人突然问我：“博主！你的方法失效了，怎么回事！？”</p><h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><p>1.一个非国内邮箱地址，没有的请右转Microsoft注册（用来注册Heroku以及Cloudflare账户）<br>2.确保自身处在非封锁国际互联网地区<br>3.实时在线的脑子<br>4.翻译工具，也可以使用Google Chrome浏览器<br>5.V2Ray软件；没有！？好吧，当然我只提供Android的，PC懒得开电脑😅<a href="https://agd.lanzous.com/iffN5ogc4ub">点击下载</a></p><h2 id="基础教程"><a href="#基础教程" class="headerlink" title="基础教程"></a>基础教程</h2><p>1.<a href="https://www.heroku.com/">注册Heroku账户</a></p><p>注意：请使用外网IP注册，且请准备好翻译工具，并在收到邮件后激活账户；注册时不能使用QQ邮箱</p><p>2.<a href="https://dashboard.heroku.com/new?template=https://github.com/bclswl0827/v2ray-heroku">点击部署V2Ray</a></p><p>数据中心就是你的服务器地址；名称就是你的二级域名前缀，如果出现红色说明该名称不可用，多换几个就好；然后点击Deploy app系统会自动部署<a href="https://imgtu.com/i/cnnllR"><img src="https://z3.ax1x.com/2021/04/03/cnnllR.md.png" alt="cnnllR.png" border="0" /></a></p><p>3.稍微等待一会儿，几秒的样子，直到全部打勾变绿<br><a href="https://imgtu.com/i/cnnGm6"><img src="https://z3.ax1x.com/2021/04/03/cnnGm6.md.png" alt="cnnGm6.png" border="0" /></a></p><p>4.<a href="https://dashboard.heroku.com/apps">点击进入你的项目</a></p><p>注意：你会看到一个项目，点击上方的Settings进入，查看你的V2Ray具体配置。如图<br><a href="https://imgtu.com/i/cnZQSI"><img src="https://z3.ax1x.com/2021/04/03/cnZQSI.png" alt="cnZQSI.png" border="0" /></a></p><p>5.点击Reveal Config Vars显示V2RrayN相关配置信息，如图<br><a href="https://imgtu.com/i/cnnRhQ"><img src="https://z3.ax1x.com/2021/04/03/cnnRhQ.md.png" alt="cnnRhQ.png" border="0" /></a><br><a href="https://imgtu.com/i/cnu9HK"><img src="https://z3.ax1x.com/2021/04/03/cnu9HK.md.jpg" alt="cnu9HK.jpg" border="0" /></a></p><p>6.开始配置V2Ray，如果你记好了以上两个（那串字母和二级网域）<br>二级网域不用加https://，直接填域名就好如图<br><a href="https://imgtu.com/i/cnuVgA"><img src="https://z3.ax1x.com/2021/04/03/cnuVgA.md.jpg" alt="cnuVgA.jpg" border="0" /></a></p><p>7.完成，接下来要是不会使用V2Ray请自裁</p><h2 id="进阶教程"><a href="#进阶教程" class="headerlink" title="进阶教程"></a>进阶教程</h2><p>对速度有要求的人群（强迫症患者）可以看一下；主要是使用Cloudflare Workers加速，免费套餐有调用限制，大家悠着点用就行了</p><p>1.在<a href="https://dash.cloudflare.com/">Cloudflare Workers</a>中创建一个Workers<br><a href="https://imgtu.com/i/cnuME8"><img src="https://z3.ax1x.com/2021/04/03/cnuME8.md.jpg" alt="cnuME8.jpg" border="0" /></a><br><a href="https://imgtu.com/i/cnu3CQ"><img src="https://z3.ax1x.com/2021/04/03/cnu3CQ.md.jpg" alt="cnu3CQ.jpg" border="0" /></a></p><p>2.将原有的示例代码全部删除，复制如下代码，并将第四行的汉字替换为你的V2Ray的地址</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">addEventListener(</span><br><span class="line">  <span class="string">&quot;fetch&quot;</span>,event =&gt; &#123;</span><br><span class="line">     <span class="built_in">let</span> url=new URL(event.request.url);</span><br><span class="line">     url.hostname=<span class="string">&quot;你的heroku域名.herokuapp.com&quot;</span>;</span><br><span class="line">     <span class="built_in">let</span> request=new Request(url,event.request);</span><br><span class="line">     event. respondWith(</span><br><span class="line">       fetch(request)</span><br><span class="line">     )</span><br><span class="line">  &#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure><p>3.点击右侧的发送按钮，看最后一行是否出现了Bad Request，出现则代表成功如图<br><a href="https://imgtu.com/i/cnutuq"><img src="https://z3.ax1x.com/2021/04/03/cnutuq.md.jpg" alt="cnutuq.jpg" border="0" /></a></p><p>4.成功后，点击保存并部署，并记下你的Workers二级域名</p><p>5.其实到第四步已经可以了，把V2Ray中原来的域名改为现在的Workers域名就行了，但是毕竟会有人追求极致完美嘛</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>手机备份应用+数据</title>
+      <link href="2019/09/01/shou-ji-bei-fen-shu-ju/"/>
+      <url>2019/09/01/shou-ji-bei-fen-shu-ju/</url>
+      
+        <content type="html"><![CDATA[<h2 id="Swift-Backup"><a href="#Swift-Backup" class="headerlink" title="Swift Backup"></a>Swift Backup</h2><p>免费开放了批处理功能。<br>不要需要GMS框架。(云同步还是要).<br>发布要点<br>新的高级功能：应用程序标签，多个备份计划，自定义应用程序备份/还原配置</p><p>应用程序的本地批量备份/还原现在是一项免费功能。应用程序云备份现在是一项高级功能。非高级用户仍然可以还原现有的应用程序云备份。</p><p>对不具有Google Play服务的ROM的实验性支持，因为您现在可以使用浏览器登录Google（以下更多详细信息）。</p><h2 id="软件下载"><a href="#软件下载" class="headerlink" title="软件下载"></a>软件下载</h2><p><a href="https://agd.lanzous.com/iVX5Yniyhsf">下载地址</a></p><h2 id="我的食用建议"><a href="#我的食用建议" class="headerlink" title="我的食用建议"></a>我的食用建议</h2><p>1.先备份你的应用<br>2.找到内部储存根目录里的SwiftBackup<br>3.打包<br>4.然后上传到你的网盘，这里我推荐阿里云盘，上传下载不限速，不过下载好像限速15MB，因为👴🏻的500mbps跑不满一直15mb下载</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Google框架安裝教程</title>
+      <link href="2015/06/23/google-kuang-jia-an-zhuang-jiao-cheng/"/>
+      <url>2015/06/23/google-kuang-jia-an-zhuang-jiao-cheng/</url>
+      
+        <content type="html"><![CDATA[<p>关于这篇文章沒有啥好讲的，字面意思，手机安裝Google</p><h2 id="准备物件"><a href="#准备物件" class="headerlink" title="准备物件"></a>准备物件</h2><ol><li>拥有已经注册完成的 Google 帐户；<br>　2. 网络条件允许访问 Google 服务器；<br>　3. 清楚你的 Android 版本和设备指令集架构（如 ARM、ARM 64 或 X86 等）。</li></ol><h2 id="教程内容"><a href="#教程内容" class="headerlink" title="教程内容"></a>教程内容</h2><p>首先，你可以从酷安下载 Google Play 「商店」，该应用全 Android 版本通用，无需任何其他考虑。</p><p>　　<a href="https://www.apkmirror.com/">访问</a> 进入 ApkMirror 首页。搜索 Google Play Service （Google Play 服务）（com.google.android.gms）。这里笔者建议选择带有 Variants 的项目，这一类项目可以保证你找到适用于自己设备的分支版本。点击项目右方的下载按钮进入版本选择页面。</p><h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><p>不同的 Android 版本、不同的指令集架构和不同的 Dpi 需要选择不同的版本，否则翻车几率将飙升至 100% 。如下图所示，找到与你的设备的 Android 版本、指令集架构与 DPI 对应的版本，点击其名称即可。普通设备一般选择 nodpi 的版本。</p><h2 id="自行操作"><a href="#自行操作" class="headerlink" title="自行操作"></a>自行操作</h2><p>　　完成下载以上两个内容后，还需要继续上方的流程下载另外三个应用才能保证安装完成，在此，笔者给大家列出搜索名、中文名及对应包名。<br>　　下方列举应用各版本所适用的 Android 版本已经体现在搜索项目的名称上，不过多涉及指令集架构及 DPI 。你可以根据名称上的 Android 版本号直接选择适合自己设备的版本。<br>A. Google Services Framework （Google 服务框架） com.google.android.gsf</p><p>B. Google Account Manager （Google 帐号管理程序） com.google.android.gsf.login<br>　　7.1.1 及以上的 Android 版本直接选用 7.1.1 版本即可，亲测可用。<br>　　<br>C. Google Partner Setup （Google 合作伙伴设置） com.google.android.partnersetup</p><h2 id="其他說明"><a href="#其他說明" class="headerlink" title="其他說明"></a>其他說明</h2><p>该教程理论适用于所有 Android 设备。如你的设备已 Root 并刷入第三方 Recovery，你也可以通过第三方 Recovery 安装 GMS 服务。笔者对这类朋友推荐 <a href="https://opengapps.org/">https://opengapps.org</a> 的 GMS 集成刷机（补丁）包。</p><h2 id="魅族手机看这"><a href="#魅族手机看这" class="headerlink" title="魅族手机看这"></a>魅族手机看这</h2><p>魅族直接应用商店搜谷歌，有安装器🤡当然我是魅族才知道这玩意的</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Hello World</title>
+      <link href="2011/01/29/hello-world/"/>
+      <url>2011/01/29/hello-world/</url>
+      
+        <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! 这是您的第一篇文章. Check <a href="https://hexo.io/docs/">文件资料</a> 有关更多信息。 如果您在使用Hexo时遇到任何问题，可以在以下位置找到答案 <a href="https://hexo.io/docs/troubleshooting.html">故障排除</a> 或者你可以問我 <a href="https://github.com/nanjiu533">GitHub</a>.</p><h2 id="快速開始"><a href="#快速開始" class="headerlink" title="快速開始"></a>快速開始</h2><h3 id="建立新文章"><a href="#建立新文章" class="headerlink" title="建立新文章"></a>建立新文章</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure><p>更多信息: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="运行服务器"><a href="#运行服务器" class="headerlink" title="运行服务器"></a>运行服务器</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo server</span><br></pre></td></tr></table></figure><p>更多信息: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="生成静态文件"><a href="#生成静态文件" class="headerlink" title="生成静态文件"></a>生成静态文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo generate</span><br></pre></td></tr></table></figure><p>更多信息: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="部署到远程站点"><a href="#部署到远程站点" class="headerlink" title="部署到远程站点"></a>部署到远程站点</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo deploy</span><br></pre></td></tr></table></figure><p>更多信息: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+  
+  
+</search>
